@@ -1,4 +1,4 @@
-name: base 
+name: chexpert 
 channels:
   - anaconda
   - conda-forge
