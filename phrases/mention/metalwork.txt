@@ -1,0 +1,4 @@
+hardware
+arthroplast
+plate
+screw

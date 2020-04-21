@@ -1,0 +1,6 @@
+mass
+lump
+cavitary lesion
+carcinoma
+neoplasm
+tumor

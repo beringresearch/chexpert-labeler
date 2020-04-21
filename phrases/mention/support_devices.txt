@@ -6,15 +6,11 @@ tube
 valve
 catheter
 pacemaker
-hardware
-arthroplast
 marker
 icd
 defib
 device
 drain_
-plate
-screw
 cannula
 apparatus
 coil
