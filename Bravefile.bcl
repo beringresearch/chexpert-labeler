@@ -1,0 +1,35 @@
+//BCL File example
+base {
+	image: 		"ubuntu-bionic-miniconda3-1.0"
+	location: 	"local"
+}
+
+system {
+    apt: 		["htop", "git", "gcc", "g++", "default-jre"]
+}
+
+
+run {
+	git: 		"clone https://github.com/beringresearch/chexpert-labeler"
+  git:    "clone https://github.com/ncbi-nlp/NegBio.git"
+  echo:   [`"export PYTHONPATH=$HOME/NegBio" >> $HOME/.bashrc`]
+  echo:   [`"export PATH=$PATH:$HOME/miniconda/bin" >> $HOME/.bashrc`]
+  bash:   ["-c", "source ~/.bashrc"]
+  bash:   ["-c", `cd chexpert-labeler &&
+conda env create -f environment.yml`]
+  bash:   ["-c", `conda init bash && source ~/.bashrc &&
+conda activate chexpert &&
+python -m nltk.downloader universal_tagset punkt wordnet &&
+python get_genia_pubmed.py`]
+}
+
+service {
+	name:		"chexpert-labeler"
+	version:	"1.0"
+	ip: 		""
+	resources {
+		ram: 	"4GB"
+		cpu: 	2
+		gpu:	false
+	}
+}

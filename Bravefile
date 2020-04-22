@@ -1,0 +1,52 @@
+base:
+  image: ubuntu-bionic-miniconda3-1.0
+  location: local
+packages:
+  manager: apt
+  system:
+  - htop
+  - git
+run:
+- command: git
+  args:
+  - clone
+  - https://github.com/beringresearch/chexpert-labeler
+- command: git
+  args:
+  - clone
+  - https://github.com/ncbi-nlp/NegBio.git
+- command: echo
+  args:
+  - '"export PYTHONPATH=$HOME/NegBio:$PYTHONPATH" >> $HOME/.bashrc'
+- command: echo
+  args:
+  - '"export PATH=$PATH:$HOME/miniconda" >> $HOME/.bashrc'
+- command: bash
+  args:
+  - -c
+  - source ~/.bashrc
+- command: bash
+  args:
+  - -c
+  - |-
+    cd chexpert-labeler &&
+    conda env create -f environment.yml
+- command: python3
+  args:
+  - -m
+  - nltk.downloader
+  - universal_tagset
+  - punkt
+  - wordnet
+- command: python3
+  args:
+  - get_genia_pubmed.py
+service:
+  name: chexpert-labeler
+  version: "1.0"
+  ip: ""
+  ports: []
+  resources:
+    ram: 4GB
+    cpu: 2
+    gpu: false
