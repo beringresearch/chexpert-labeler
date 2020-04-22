@@ -1,6 +1,6 @@
 FROM continuumio/anaconda3
 
-RUN apt install -y git gcc g++
+RUN apt-get update && apt-get install -y git gcc g++ libxslt-dev python3-dev libxml2 libxml2-dev build-essential python-lxml
 
 COPY get_genia_pubmed.py /home/
 
